@@ -11,6 +11,10 @@
       <l-marker :position="center" :title="$t(cityName)" :opacity="opacity" :draggable="draggable">
         <l-popup :content="$t(cityName)"></l-popup>
       </l-marker>
+
+      <l-marker v-for="city in cities" :key="city.name" :position="city.coordinates" :title="city.name">
+        <l-popup :content="city.name"></l-popup>
+      </l-marker>
     </l-map>
   </div>
 </template>
@@ -35,7 +39,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["center", "cityName"])
+    ...mapGetters(["center", "cityName", 'cities'])
   },
 
   mounted() {
