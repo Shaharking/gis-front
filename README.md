@@ -5,6 +5,7 @@ A vue mobile webapp for leaflet.js which is produced by [vue](https://github.com
 ## Development
 
 ```
+npm install
 npm run dev
 ```
 
@@ -46,7 +47,7 @@ npn run build
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 

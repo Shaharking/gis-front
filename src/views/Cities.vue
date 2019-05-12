@@ -5,9 +5,12 @@
         <div slot="right-menu">
           <swipeout-button @click.native="deleteCity(item.name)" type="warn">{{$t('Delete')}}</swipeout-button>
         </div>
-        <a slot="content" href="javascript:;" class="navigator vux-1px-b" @click="onChange(item.name)">
-          {{$t(item.name)}}
-        </a>
+        <a
+          slot="content"
+          href="javascript:;"
+          class="navigator vux-1px-b"
+          @click="onChange(item.name)"
+        >{{$t(item.name)}}</a>
       </swipeout-item>
     </swipeout>
     <router-link to="more" class="navigator vux-1px-b">{{$t('More')}}</router-link>
@@ -15,12 +18,11 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-import { Swipeout, SwipeoutItem, SwipeoutButton, Cell } from 'vux'
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapMutations } from "vuex";
+import { Swipeout, SwipeoutItem, SwipeoutButton, Cell } from "vux";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
-
   components: {
     Swipeout,
     SwipeoutItem,
@@ -29,37 +31,27 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      "selectedCities",
-    ]),
+    ...mapGetters(["selectedCities"])
   },
 
   mounted() {
-    this.SET_HEADER({title:this.$t('Cities')})
+    this.SET_HEADER({ title: this.$t("Cities") });
   },
 
   methods: {
-    ...mapMutations(['SET_HEADER']),
-    ...mapActions([
-      'changeMapCity',
-      'changeWeatherCity',
-      'deleteCity',
-    ]),
-    onChange(name){
-       var fromPath = this.$store.state.route.from.fullPath
-        if(fromPath === '/'){
-          this.changeMapCity(name)
-        }else if(fromPath === '/weather'){
-          this.changeWeatherCity(name)
-        }
-        this.$router.go(-1)
-       
-        
-    },
-  },
-
-}
-
+    ...mapMutations(["SET_HEADER"]),
+    ...mapActions(["changeMapCity", "changeWeatherCity", "deleteCity"]),
+    onChange(name) {
+      var fromPath = this.$store.state.route.from.fullPath;
+      if (fromPath === "/") {
+        this.changeMapCity(name);
+      } else if (fromPath === "/weather") {
+        this.changeWeatherCity(name);
+      }
+      this.$router.go(-1);
+    }
+  }
+};
 </script>
 
 <style>

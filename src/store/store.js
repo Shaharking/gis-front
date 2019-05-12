@@ -1,67 +1,68 @@
-import mutations from './mutations'
-import * as getters from './getters'
-import * as actions from './actions'
+import mutations from "./mutations";
+import * as getters from "./getters";
+import * as actions from "./actions";
 
 const state = {
   header: {
-    title: '地图',
+    title: "地图",
     rightOption: {
       show: true,
-      name: '城市',
-      link: 'cities',
+      name: "城市",
+      link: "cities"
     },
     leftOption: {}
   },
 
-  direction: 'forward',
+  direction: "forward",
 
-  mapCityName: 'Shenzhen',
+  mapCityName: "Tel Aviv-Yafo",
 
-  selectedNames: ['Shenzhen', 'Beijing', 'Shanghai'],
+  selectedNames: ["Tel Aviv-Yafo", "Bat Yam", "Rehovot"],
 
   cities: [
-    { name: 'Shenzhen', coordinates: [22.5455537937, 114.0544373601] },
-    { name: 'Beijing', coordinates: [39.9032724643, 116.4009203787] },
-    { name: 'Shanghai', coordinates: [31.2323076784, 121.4691562490] },
-    { name: 'Guangzhou', coordinates: [23.1317346641, 113.2590285241] },
-    { name: 'Hangzhou', coordinates: [30.2764554112, 120.1504383337] },
-    { name: 'Xiamen', coordinates: [24.4822103305, 118.0844769942] },
-    { name: 'Haerbin', coordinates: [45.8001578452, 126.5297346860] },
-    { name: 'Xian', coordinates: [34.3427473471, 108.9351962803] },
-    { name: 'Wuhan', coordinates: [30.5951668577, 114.2998018195] }
+    { name: "Tel Aviv-Yafo", coordinates: [32.109333, 34.855499] },
+    { name: "Ra'anana", coordinates: [32.184448, 34.870766] },
+    { name: "Bethlehem", coordinates: [31.705791, 35.200657] },
+    { name: "Ashdod", coordinates: [31.801447, 34.643497] },
+    { name: "Nazareth", coordinates: [32.699635, 35.303547] },
+    { name: "Bat Yam", coordinates: [32.017136, 34.745441] },
+    { name: "Haifa", coordinates: [32.794044, 34.989571] },
+    { name: "Karmiel", coordinates: [32.919945, 35.290146] },
+    { name: "Herzliya", coordinates: [32.166313, 34.843311] },
+    { name: "Rehovot", coordinates: [31.894756, 34.809322] }
   ],
 
   now: {
-    cityName: 'Shenzhen',
-    text: 'Sunny',
+    cityName: "Shenzhen",
+    text: "Sunny",
     temperature: 20,
-    code: '14',
+    code: "14"
   },
   future: [
     {
-      day: '今日',
-      date: '2017-05-13',
-      code_day: '1',
-      code_night: '2',
+      day: "今日",
+      date: "2017-05-13",
+      code_day: "1",
+      code_night: "2",
       high: 25,
-      low: 20,
+      low: 20
     },
     {
-      day: '明天',
+      day: "明天",
       date: '"2017-05-14"',
-      code_day: '1',
-      code_night: '2',
+      code_day: "1",
+      code_night: "2",
       high: 25,
-      low: 20,
+      low: 20
     },
     {
-      day: '后天',
+      day: "后天",
       date: '"2017-05-15"',
-      code_day: '1',
-      code_night: '2',
+      code_day: "1",
+      code_night: "2",
       high: 25,
-      low: 20,
-    },
+      low: 20
+    }
   ]
 };
 
@@ -69,5 +70,5 @@ export default {
   state,
   mutations,
   getters,
-  actions,
+  actions
 };
