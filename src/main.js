@@ -33,7 +33,7 @@ const finalLocales = {
 };
 Vue.i18n.add('en', finalLocales.en);
 Vue.i18n.add('zh-CN', finalLocales['zh-CN']);
-Vue.i18n.set('zh-CN');
+Vue.i18n.set('en');
 
 const history = window.sessionStorage;
 history.clear();
