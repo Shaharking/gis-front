@@ -4,28 +4,37 @@
 
  <div id="Login">
 
+
+
+
         <div class="Username"> <h1>LOGIN:</h1> </div>
 
-        <div class="Username"> <h2><input placeholder="Username" width="100px" height="12px"> </h2> </div>
+        <div><h2><input class="textInput" placeholder="Username"> </h2> </div>
 
-        <div class="Username"><h2> <input placeholder="Password" width="100px" height="12px">  </h2> </div>
+        <div><h2> <input  class="textInput" placeholder="Password">  </h2> </div>
 
-        <div class="Username"> <button> <h3> Login </h3> </button></div>
+        <v-ons-button modifier="large" style="margin: 6px 0">LOGIN</v-ons-button>
 
-        <div class="Username"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/600px-Facebook_logo_%28square%29.png" width="25px" height="25px" align="left"> Login with Facebook</div>
+        <div class="Username"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/600px-Facebook_logo_%28square%29.png" width="25px" height="25px" align="left"> <h5>Login with Facebook</h5></div>
 
-        <div class="Username"><img src="https://herevde.net/wp-content/uploads/2018/06/google-g-logo.jpg" width="25px" height="25px" align="left"> Login with Google</div>
+        <div class="Username"><img src="https://herevde.net/wp-content/uploads/2018/06/google-g-logo.jpg" width="25px" height="25px" align="left"> <h5>Login with Google</h5></div>
 
 
         </div>
-     
-      
+ 
 
+     </div>
     </div>
 </template>
 
 <script>
 export default {
+    data ()
+    {
+        return {
+            name: ''
+        }
+    }
 }
 </script>
 
@@ -45,6 +54,16 @@ export default {
 
     padding: 8px;
     display: flex;
+    margin-left: 80px;
+}
+
+.textInput{
+
+    padding: 8px;
+    display: flex;
+    width: 380px;
+    height: 20px;
+    margin: 0px 0px 5px 0px;
 }
 
 p{
