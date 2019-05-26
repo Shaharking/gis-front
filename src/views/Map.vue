@@ -12,7 +12,12 @@
         <l-popup :content="$t(cityName)"></l-popup>
       </l-marker>
 
-      <l-marker v-for="city in cities" :key="city.name" :position="city.coordinates" :title="city.name">
+      <l-marker
+        v-for="city in cities"
+        :key="city.name"
+        :position="city.coordinates"
+        :title="city.name"
+      >
         <l-popup :content="city.name"></l-popup>
       </l-marker>
     </l-map>
@@ -39,7 +44,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["center", "cityName", 'cities'])
+    ...mapGetters(["center", "cityName", "cities"])
   },
 
   mounted() {
@@ -48,10 +53,15 @@ export default {
       rightOption: { show: true, name: "城市", link: "cities" }
     });
     this.addControl(new locateControl());
+    this.loadAttractionsAndCategories();
   },
 
   methods: {
-    ...mapMutations(["SET_HEADER", "addControl"])
+    ...mapMutations(["SET_HEADER", "addControl"]),
+    loadAttractionsAndCategories() {
+      this.$store.dispatch("fetchAttractions");
+      this.$store.dispatch("fetchCategories");
+    }
   }
 };
 </script>

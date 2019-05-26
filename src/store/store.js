@@ -12,7 +12,8 @@ const state = {
     },
     leftOption: {}
   },
-
+  categories: [],
+  attractions: [],
   direction: "forward",
 
   mapCityName: "Tel Aviv-Yafo",
