@@ -15,9 +15,9 @@
 
         <v-ons-button modifier="large" style="margin: 6px 0">LOGIN</v-ons-button>
 
-        <div class="Username"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/600px-Facebook_logo_%28square%29.png" width="25px" height="25px" align="left"> <h5>Login with Facebook</h5></div>
+        <div class="Username"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/600px-Facebook_logo_%28square%29.png" width="25px" height="25px" align="left"><button width="100px"> <h5>Login with Facebook</h5></button></div>
 
-        <div class="Username"><img src="https://herevde.net/wp-content/uploads/2018/06/google-g-logo.jpg" width="25px" height="25px" align="left"> <h5>Login with Google</h5></div>
+        <div class="Username"><img src="https://herevde.net/wp-content/uploads/2018/06/google-g-logo.jpg" width="25px" height="25px" align="left"><button width="100px"> <h5>Login with Google</h5></button></div>
 
 
         </div>
@@ -45,6 +45,7 @@ export default {
                 width:400px;   
                 margin: 0 auto;
                 margin-top: 250px;
+                
 
 
 }
