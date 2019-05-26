@@ -13,6 +13,10 @@ import vuxLocales from "json-loader!yaml-loader!vux/src/locales/all.yml";
 import router from "./router";
 import store from "./store";
 import App from "./App";
+
+import "onsenui/css/onsenui.css";
+import "onsenui/css/onsen-css-components.css";
+import VueOnsen from "vue-onsenui";
 // const componentsLocales = require('json-loader!yaml-loader!vux/src/locales/components.yml')
 import locales from "./locales/locales";
 
@@ -21,6 +25,7 @@ Vue.use(AjaxPlugin);
 Vue.use(vuexI18n.plugin, store);
 Vue.use(VueLeaflet.plugin, store);
 Vue.use(VueMeta);
+Vue.use(VueOnsen);
 
 Vue.config.productionTip = false;
 

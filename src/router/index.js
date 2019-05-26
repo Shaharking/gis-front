@@ -32,6 +32,10 @@ const routes = [
     path: '/weather',
     component: resolve => require(['../views/Weather'], resolve),
   },
+  {
+    path: '/login',
+    component: resolve => require(['../views/Login'], resolve),
+  },
 ];
 
 
