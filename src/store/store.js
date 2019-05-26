@@ -7,7 +7,7 @@ const state = {
     title: "地图",
     rightOption: {
       show: true,
-      name: "城市",
+      name: "Cities",
       link: "cities"
     },
     leftOption: {}

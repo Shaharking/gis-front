@@ -3,7 +3,11 @@
     <view-box ref="viewBox">
       <x-header :left-options="leftOption">
         {{title}}
-        <router-link v-if="rightOption.show" slot="right" :to="rightOption.link">{{rightOption.name}}</router-link>
+        <router-link
+          v-if="rightOption.show"
+          slot="right"
+          :to="rightOption.link"
+        >{{rightOption.name}}</router-link>
       </x-header>
       <transition :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
         <router-view class="router-view"></router-view>
@@ -14,41 +18,36 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
-import { ViewBox, XHeader } from 'vux';
-import Layout from './components/Layout'
+import { mapState, mapGetters } from "vuex";
+import { ViewBox, XHeader } from "vux";
+import Layout from "./components/Layout";
 
 export default {
   components: {
     ViewBox,
     Layout,
-    XHeader,
+    XHeader
   },
 
   computed: {
     ...mapState({
-      locale: state => state.i18n.locale,
+      locale: state => state.i18n.locale
     }),
-    ...mapGetters([
-      "title",
-      "direction",
-      'rightOption',
-      'leftOption'
-    ]),
+    ...mapGetters(["title", "direction", "rightOption", "leftOption"]),
     back: {
-      get: function () {
-        return this.$t('Back')
+      get: function() {
+        return this.$t("Back");
       }
     }
   },
 
   watch: {
-    locale: 'setTitle',
+    locale: "setTitle"
   },
 
   methods: {
     setTitle() {
-      document.title = this.$t('vue-leaflet-mobile')
+      document.title = this.$t("vue-leaflet-mobile");
     }
   },
 
@@ -57,17 +56,14 @@ export default {
     // this.title = this.$t('Map')
   },
 
-  mounted() {
-  },
-}
-
+  mounted() {}
+};
 </script>
 
 <style lang="less">
-@import './assets/css/lib-rem.less';
-@import '~vux/src/styles/reset.less';
-@import '~vux/src/styles/1px.less';
-
+@import "./assets/css/lib-rem.less";
+@import "~vux/src/styles/reset.less";
+@import "~vux/src/styles/1px.less";
 
 html,
 body {
@@ -91,7 +87,6 @@ body {
   left: 0;
   right: 0;
 }
-
 
 /**
 * vue-router transition
