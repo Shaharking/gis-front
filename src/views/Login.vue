@@ -42,10 +42,9 @@ export default {
 #Login {
 
                 color:#251d1d;
-                width:400px;
-                margin-left: 800px;
+                width:400px;   
+                margin: 0 auto;
                 margin-top: 250px;
-                align-items: center;
 
 
 }
