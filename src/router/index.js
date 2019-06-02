@@ -36,6 +36,10 @@ const routes = [
     path: '/register',
     component: resolve => require(['../views/Register'], resolve),
   },
+  {
+    path: '/login',
+    component: resolve => require(['../views/Login'], resolve),
+  }
 ];
 
 
