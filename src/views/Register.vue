@@ -1,14 +1,27 @@
 <template>
-    <div class="full-height">
-        Register
-        <p> {{title}}</p>
-        <h1 :class="classname">blabla</h1>
+    <div class="full-height" >
+         
+    
+        <div  style="width:400px;margin:0 auto;">
+            <h1 :class="classname" >Welcome </h1>
+            <section>
+        
+            <input type="radio" v-model="gender" v-bind="a" >{{a}}
+            <input type="radio" v-model="gender" v-bind="b" style="margin-left: 30px">{{b}}
+            </section>
 
-        First Name <input id="input" type ="text">
-        <button id ="button"> add name</button>
-        <button title='this button f'>map.png</button>
-        <img alt ="bbb" >
-        <img :src="headImg">
+
+
+            <div><input id="input" type ="text" placeholder="First Name " style="margin-top: 10px"></div>
+
+            <div><input id="input" type = "text" placeholder="Second Name" style="margin-top: 10px" ></div>
+
+             <div><input id="input" type = "text" placeholder="Email" style="margin-top: 10px" ></div>
+
+              <div><input id="input" type = "text" placeholder="Password" style="margin-top: 10px" ></div>
+            
+            <v-ons-button modifier="small" style="margin-left: 50px; margin-top: 10px">Register</v-ons-button>
+        </div>
     </div>
 </template>
 
@@ -16,9 +29,14 @@
 export default {
     data(){
         return{
-            title:'abc',
+           // title:'abc',
             classname:'color-red',
-             headImg: require("../assets/headpart.jpg")
+            a:'Company',
+            b: 'Privet User',
+           
+            
+            // headImg: require("../assets/headpart.jpg")
+           // link: <label for= "company"><input id="company" type="radio" name ="You are?"> company </label><label>for= "company"><input id="Privet" type="radio" name ="You are?"> Privet </label>
         }
     }
     
@@ -26,7 +44,11 @@ export default {
 </script>
 
 <style scoped>
+
 .color-red {color:red};
+ 
+
+
 
 </style>
 
