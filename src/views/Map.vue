@@ -6,19 +6,22 @@
       :min-zoom="minZoom"
       :max-zoom="maxZoom"
       :attributionControl="attributionControl"
+      @zoomend="onZoomEnd"
+      ref="map"
     >
       <l-tilelayer :url="url" :attribution="attribution"></l-tilelayer>
-      <l-marker :position="center" :title="$t(cityName)" :opacity="opacity" :draggable="draggable">
+      <!-- <l-marker :position="center" :title="$t(cityName)" :opacity="opacity" :draggable="draggable">
         <l-popup :content="$t(cityName)"></l-popup>
-      </l-marker>
+      </l-marker>-->
 
       <l-marker
-        v-for="city in cities"
-        :key="city.name"
-        :position="city.coordinates"
-        :title="city.name"
+        v-for="attraction in attractions.filter((v, i) => i <= 100)"
+        :key="attraction.id"
+        :position="attraction.position"
+        :title="attraction.name"
+        :icon="getIcon(attraction.category)"
       >
-        <l-popup :content="city.name"></l-popup>
+        <l-popup :content="`${attraction.name} ${attraction.position}`"></l-popup>
       </l-marker>
     </l-map>
   </div>
@@ -27,8 +30,13 @@
 <script>
 import { mapState, mapMutations, mapGetters } from "vuex";
 import locateControl from "leaflet.locatecontrol";
+import IconsDictionary from "./../utils/markerIcons.js";
+// import Vue2LeafletMarkerCluster from "vue2-leaflet-markercluster";
 
 export default {
+  // components: {
+  //   "v-marker-cluster": Vue2LeafletMarkerCluster
+  // },
   data() {
     return {
       zoom: 9,
@@ -44,7 +52,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["center", "cityName", "cities"])
+    ...mapGetters(["center", "cityName", "cities", "getMap", "attractions"])
   },
 
   mounted() {
@@ -59,8 +67,21 @@ export default {
   methods: {
     ...mapMutations(["SET_HEADER", "addControl"]),
     loadAttractionsAndCategories() {
-      this.$store.dispatch("fetchAttractions");
-      this.$store.dispatch("fetchCategories");
+      this.$store.dispatch("fetchCategories").then(res => {
+        this.$store.dispatch("fetchAttractions");
+      });
+      this.locate();
+    },
+    getIcon(category) {
+      const icon = IconsDictionary[category];
+      return icon;
+    },
+    locate() {
+      // const map = this.getMap;
+      console.log(this.center);
+    },
+    onZoomEnd(args) {
+      console.log("Zoom ended" + this.zoom);
     }
   }
 };

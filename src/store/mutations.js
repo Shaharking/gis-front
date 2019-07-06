@@ -46,6 +46,15 @@ export default {
     state.categories = categories;
   },
   [types.SET_ATTRACTIONS](state, attractions) {
-    state.attractions = attractions;
+    const categories = state.categories.reduce((acc, p) => {
+      acc[p.id] = p.category_name;
+      return acc;
+    }, {});
+    state.attractions = attractions.map(attraction => {
+      const location = attraction.Location;
+      attraction["position"] = [location.lat, location.lng];
+      attraction["category"] = categories[attraction.id_category];
+      return attraction;
+    });
   }
 };

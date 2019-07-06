@@ -17,6 +17,9 @@ import App from "./App";
 import "onsenui/css/onsenui.css";
 import "onsenui/css/onsen-css-components.css";
 import VueOnsen from "vue-onsenui";
+
+import "./assets/leaflet.awesome-markers.min.js";
+import "./assets/leaflet.awesome-markers.css";
 // const componentsLocales = require('json-loader!yaml-loader!vux/src/locales/components.yml')
 import locales from "./locales/locales";
 
