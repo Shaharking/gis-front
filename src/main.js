@@ -3,7 +3,12 @@
 import Vue from "vue";
 import FastClick from "fastclick";
 import vuexI18n from "vuex-i18n";
-import VueLeaflet from "vueleaflet";
+// import VueLeaflet from "vueleaflet";
+// import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
+import { Icon } from "leaflet";
+import "leaflet.markercluster/dist/MarkerCluster.css";
+import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+
 import VueMeta from "vue-meta";
 import { sync } from "vuex-router-sync";
 import objectAssign from "object-assign";
@@ -20,15 +25,27 @@ import VueOnsen from "vue-onsenui";
 
 import "./assets/leaflet.awesome-markers.min.js";
 import "./assets/leaflet.awesome-markers.css";
-// const componentsLocales = require('json-loader!yaml-loader!vux/src/locales/components.yml')
+// const componentsLocales = require("json-loader!yaml-loader!vux/src/locales/components.yml");
 import locales from "./locales/locales";
 
 Vue.use(DevicePlugin);
 Vue.use(AjaxPlugin);
 Vue.use(vuexI18n.plugin, store);
-Vue.use(VueLeaflet.plugin, store);
+// Vue.use(VueLeaflet.plugin, store);
 Vue.use(VueMeta);
 Vue.use(VueOnsen);
+
+// Vue.component("l-map", LMap);
+// Vue.component("l-tile-layer", LTileLayer);
+// Vue.component("l-marker", LMarker);
+
+// delete Icon.Default.prototype._getIconUrl;
+
+// Icon.Default.mergeOptions({
+//   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+//   iconUrl: require("leaflet/dist/images/marker-icon.png"),
+//   shadowUrl: require("leaflet/dist/images/marker-shadow.png")
+// });
 
 Vue.config.productionTip = false;
 
