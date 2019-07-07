@@ -5,9 +5,11 @@ import FastClick from "fastclick";
 import vuexI18n from "vuex-i18n";
 // import VueLeaflet from "vueleaflet";
 // import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
-import { Icon } from "leaflet";
+import "leaflet";
+import "leaflet-sidebar-v2/js/leaflet-sidebar";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+import "leaflet-sidebar-v2/css/leaflet-sidebar.min.css";
 
 import VueMeta from "vue-meta";
 import { sync } from "vuex-router-sync";
