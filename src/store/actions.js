@@ -3,6 +3,7 @@ import * as types from "./mutation-types";
 import { getNowWeather, getFutureWeather } from "@/api/getWeather";
 import { getAttractions } from "@/api/attractions";
 import { getCategories } from "@/api/category";
+import { login, register } from "@/api/user";
 
 export const changeMapCity = makeAction(types.CHANGE_MAP_CITY);
 
@@ -46,4 +47,30 @@ export const fetchCategories = ({ commit, state }) => {
   getCategories().then(res => {
     commit("SET_CATEGORIES", res.data);
   });
+};
+
+export const userLogin = ({ commit, state }, payload) => {
+  return login(payload)
+    .then(res => {
+      commit("SET_USER", res.data);
+      return res.data;
+    })
+    .catch(err => {
+      throw err;
+    });
+};
+
+export const userLogout = ({ commit, state }) => {
+  commit("SET_USER", null);
+};
+
+export const userRegister = ({ commit, state }, payload) => {
+  return register(payload)
+    .then(res => {
+      commit("SET_USER", res.data);
+      return res.data;
+    })
+    .catch(err => {
+      throw err;
+    });
 };

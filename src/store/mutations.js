@@ -56,5 +56,8 @@ export default {
       attraction["category"] = categories[attraction.id_category];
       return attraction;
     });
+  },
+  [types.SET_USER](state, user) {
+    state.user = user;
   }
 };

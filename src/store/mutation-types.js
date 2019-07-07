@@ -17,3 +17,5 @@ export const SET_FUTURE_WEATHER = "SET_FUTURE_WEATHER";
 export const SET_ATTRACTIONS = "SET_ATTRACTIONS";
 
 export const SET_CATEGORIES = "SET_CATEGORIES";
+
+export const SET_USER = "SET_USER";

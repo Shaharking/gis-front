@@ -7,7 +7,7 @@
 <script>
 import { mapState, mapMutations, mapGetters } from "vuex";
 import locateControl from "leaflet.locatecontrol";
-//import IconsDictionary from "./../utils/markerIcons.js";
+import IconsDictionary from "./../utils/markerIcons.js";
 import { latLng } from "leaflet";
 import L from "leaflet";
 import "leaflet.markercluster/dist/leaflet.markercluster-src";
@@ -103,9 +103,10 @@ export default {
         var a = attraction.position;
         var title = attraction.name;
         var marker = L.marker(L.latLng(a[0], a[1]), {
-          title: title
+          title: title,
+          icon: this.getIcon(attraction.category)
         });
-        marker.bindPopup(title);
+        marker.bindPopup(`${title} <br/> ${attraction.category}`);
         marker.addTo(this.attractionsCluster);
         //markers.addLayer(marker);
       });
@@ -119,6 +120,10 @@ export default {
 /* @import "https://cdn.bootcss.com/leaflet/1.0.3/leaflet.css";
 @import "~leaflet.locatecontrol/dist/L.Control.Locate.css";
 @import "//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"; */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.min.css");
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+@import "https://cdnjs.cloudflare.com/ajax/libs/ionicons/1.5.2/css/ionicons.min.css";
 
 #map {
   width: 100%;
