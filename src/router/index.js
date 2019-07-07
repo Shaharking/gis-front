@@ -37,6 +37,10 @@ const routes = [
     component: resolve => require(["../views/Login"], resolve)
   },
   {
+    path: "/side",
+    component: resolve => require(["../components/SideMenu"], resolve)
+  },
+  {
     path: "/register",
     component: resolve => require(["../views/Register"], resolve)
   }
