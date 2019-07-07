@@ -3,6 +3,11 @@ import * as getters from "./getters";
 import * as actions from "./actions";
 
 const state = {
+  user: {
+    email: undefined,
+    name: undefined,
+    token: undefined
+  },
   header: {
     title: "地图",
     rightOption: {
@@ -12,7 +17,8 @@ const state = {
     },
     leftOption: {}
   },
-
+  categories: [],
+  attractions: [],
   direction: "forward",
 
   mapCityName: "Tel Aviv-Yafo",

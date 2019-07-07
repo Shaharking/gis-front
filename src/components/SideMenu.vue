@@ -1,33 +1,20 @@
 <template>
-  
-<div class="menu1"> 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-<h1>Menu</h1>
-
-<div class="vertical-menu">
-  <a href="#" class="active">Home</a>
-  <a href="#">Profile</a>
-  <a href="#">Existing travel</a>
-  <a href="#">Create a new trip</a>
-  <a href="#">List of attractions</a>
-
-</div>
-
-</div>
-
+  <div class="menu1">
+    <div class="vertical-menu">
+      <a href="#" class="active">Home</a>
+      <a href="#">Profile</a>
+      <a href="#">Existing travel</a>
+      <a href="#">Create a new trip</a>
+      <a href="#">List of attractions</a>
+    </div>
+  </div>
 </template>
 <script>
-export default {
-}
+export default {};
 </script>
 
 <style>
-
-
-
-  .vertical-menu {
+.vertical-menu {
   width: 200px;
 }
 
@@ -44,8 +31,7 @@ export default {
 }
 
 .vertical-menu a.active {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
-
 </style>
