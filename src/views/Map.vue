@@ -211,7 +211,41 @@ export default {
           title: title,
           icon: this.getIcon(attraction.category)
         });
-        marker.bindPopup(`${title} <br/> ${attraction.category}`);
+        marker.bindPopup(
+          `${title} <br/> ${attraction.category} </br> Loading...`
+        );
+        (attraction => {
+          marker.on("click", e => {
+            var popup = e.target.getPopup();
+            var url = attraction.description;
+            fetch(url)
+              .then(response => {
+                return response.json();
+              })
+              .then(data => {
+                var links = Object.keys(data.external_urls)
+                  .filter(key => {
+                    return !!data.external_urls[key];
+                  })
+                  .map(key => {
+                    return `<a href=" ${
+                      data.external_urls[key]
+                    }" target="_blank"> ${data.external_urls[key]} </a> <br/>`;
+                  });
+
+                popup.setContent(`
+                  ${attraction.name} <br/>
+                  ${data.address ? `Address: ${data.address} <br/> ` : ""}
+                  Category: ${data.category}  <br/>
+                  ${data.description.en}  <br/>
+                  More information on:  <br/>
+                  ${links}
+                `);
+                popup.update();
+              });
+          });
+        })(attraction);
+
         var group = this.attractionGroups[attraction.category];
         //marker.addTo(this.attractionsCluster);
         marker.addTo(group);
