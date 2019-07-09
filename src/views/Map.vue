@@ -90,6 +90,7 @@ import SideMenu from "../components/SideMenu";
 // import Vue2LeafletMarkerCluster from "vue2-leaflet-markercluster";
 import "leaflet.featuregroup.subgroup";
 import "leaflet-sidebar-v2/js/leaflet-sidebar";
+import "leaflet-search/dist/leaflet-search.src";
 
 export default {
   data() {
@@ -159,6 +160,9 @@ export default {
         .addTo(mymap)
         .open("profile");
     } catch (ex) {}
+
+    // var searchLayer = L.layerGroup().addTo(mymap);
+    mymap.addControl(new L.Control.Search({ layer: cluster }));
   },
 
   methods: {
