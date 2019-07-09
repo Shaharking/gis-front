@@ -44,20 +44,6 @@
             <v-ons-list-item class="menu-item">Create a new trip</v-ons-list-item>
             <v-ons-list-item class="menu-item">List of attractions</v-ons-list-item>
           </v-ons-list>
-
-          <v-ons-list>
-            <v-ons-list-header>Filters</v-ons-list-header>
-            <v-ons-list-item v-for="(category, $index) in categories" :key="category.id" tappable>
-              <label class="left">
-                <v-ons-checkbox
-                  :input-id="'checkbox-' + $index"
-                  :value="category.id"
-                  v-model="selectedCategories"
-                ></v-ons-checkbox>
-              </label>
-              <label class="center" :for="'checkbox-' + $index">{{ category.category_name }}</label>
-            </v-ons-list-item>
-          </v-ons-list>
         </div>
 
         <div class="leaflet-sidebar-pane" id="autopan">
@@ -99,16 +85,19 @@ import IconsDictionary from "./../utils/markerIcons.js";
 import { latLng } from "leaflet";
 import L from "leaflet";
 import "leaflet.markercluster/dist/leaflet.markercluster-src";
-import "./../libs/leaflet.markercluster.layersupport";
 import { setTimeout } from "timers";
 import SideMenu from "../components/SideMenu";
 // import Vue2LeafletMarkerCluster from "vue2-leaflet-markercluster";
+import "leaflet.featuregroup.subgroup";
+import "leaflet-sidebar-v2/js/leaflet-sidebar";
 
 export default {
   data() {
     return {
       map: undefined,
       attractionsCluster: undefined,
+      attractionGroups: [],
+      control: undefined,
       zoom: 13,
       center: L.latLng(47.41322, -1.219482),
       url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
@@ -126,7 +115,9 @@ export default {
       return attractions;
     },
     categories() {
-      return this.$store.getters["categories"];
+      const categories = this.$store.getters["categories"];
+      console.log(categories);
+      return categories;
     }
   },
 
@@ -138,7 +129,7 @@ export default {
     // // this.addControl(new locateControl());
     this.SET_HEADER({ title: this.$t("Map") });
     this.loadAttractionsAndCategories();
-    var mymap = L.map("map").setView([51.505, -0.09], 13);
+    var mymap = L.map("map").setView([52.37403, 4.88969], 13);
     this.map = mymap;
     const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
     const streetMapUrl = "http://{s}.tile.osm.org/{z}/{x}/{y}.png";
@@ -149,18 +140,25 @@ export default {
     }).addTo(mymap);
 
     L.control.locate().addTo(mymap);
+    var control = L.control.layers(null, null, { collapsed: false });
+    this.control = control;
 
     var cluster = L.markerClusterGroup({
       maxClusterRadius: 80,
       chunkedLoading: true
-    }).addTo(mymap);
+    });
+
+    cluster.addTo(mymap);
 
     this.attractionsCluster = cluster;
 
-    var sidebar = L.control
-      .sidebar({ container: "sidebar" })
-      .addTo(mymap)
-      .open("profile");
+    //
+    try {
+      var sidebar = L.control
+        .sidebar({ container: "sidebar" })
+        .addTo(mymap)
+        .open("profile");
+    } catch (ex) {}
   },
 
   methods: {
@@ -196,6 +194,14 @@ export default {
   watch: {
     attractions() {
       console.log(this.attractions);
+      this.categories.forEach(category => {
+        if (!this.attractionGroups[category.category_name]) {
+          var group = L.featureGroup.subGroup(this.attractionsCluster);
+          this.attractionGroups[category.category_name] = group;
+          this.control.addOverlay(group, category.category_name);
+          group.addTo(this.map);
+        }
+      });
       //var markers = L.markerClusterGroup({ chunkedLoading: true });
       var cities = [];
       this.attractions.forEach(attraction => {
@@ -206,12 +212,16 @@ export default {
           icon: this.getIcon(attraction.category)
         });
         marker.bindPopup(`${title} <br/> ${attraction.category}`);
-        marker.addTo(this.attractionsCluster);
+        var group = this.attractionGroups[attraction.category];
+        //marker.addTo(this.attractionsCluster);
+        marker.addTo(group);
         //markers.addLayer(marker);
       });
+      this.control.addTo(this.map);
       // this.map.addLayer(markers);
     }
-  }
+  },
+  categories() {}
 };
 </script>
 
