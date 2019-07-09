@@ -31,48 +31,33 @@
       <div class="leaflet-sidebar-content">
         <div class="leaflet-sidebar-pane" id="home">
           <h1 class="leaflet-sidebar-header">
-            sidebar-v2
+            Actions
             <span class="leaflet-sidebar-close">
               <i class="fa fa-caret-left"></i>
             </span>
           </h1>
 
-          <p>
-            A responsive sidebar for the mapping library
-            <a href="http://leafletjs.com/">Leaflet</a>.
-          </p>
-          <p>Compatible with version 0.7 and 1.x (tested up to 1.2.0)</p>
-          <p>
-            <b>Select the other panes for a showcase of each feature.</b>
-          </p>
+          <v-ons-list>
+            <v-ons-list-header>Default</v-ons-list-header>
+            <v-ons-list-item class="menu-item">Home</v-ons-list-item>
+            <v-ons-list-item class="menu-item">Existing travel</v-ons-list-item>
+            <v-ons-list-item class="menu-item">Create a new trip</v-ons-list-item>
+            <v-ons-list-item class="menu-item">List of attractions</v-ons-list-item>
+          </v-ons-list>
 
-          <h2>More examples</h2>
-          <ul>
-            <li>
-              <a href="./position-right.html">Right aligned</a>
-            </li>
-            <li>
-              <a href="./halfheight.html">The sidebar adapts to map container size</a>
-            </li>
-            <li>
-              <a
-                href="./leaflet-latest.html"
-              >Proof that it works with the latest leaflet version (if not, please report it!)</a>
-            </li>
-          </ul>
-
-          <p
-            class="lorem"
-          >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-          <p
-            class="lorem"
-          >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-          <p
-            class="lorem"
-          >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-          <p
-            class="lorem"
-          >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+          <v-ons-list>
+            <v-ons-list-header>Filters</v-ons-list-header>
+            <v-ons-list-item v-for="(category, $index) in categories" :key="category.id" tappable>
+              <label class="left">
+                <v-ons-checkbox
+                  :input-id="'checkbox-' + $index"
+                  :value="category.id"
+                  v-model="selectedCategories"
+                ></v-ons-checkbox>
+              </label>
+              <label class="center" :for="'checkbox-' + $index">{{ category.category_name }}</label>
+            </v-ons-list-item>
+          </v-ons-list>
         </div>
 
         <div class="leaflet-sidebar-pane" id="autopan">
@@ -114,6 +99,7 @@ import IconsDictionary from "./../utils/markerIcons.js";
 import { latLng } from "leaflet";
 import L from "leaflet";
 import "leaflet.markercluster/dist/leaflet.markercluster-src";
+import "./../libs/leaflet.markercluster.layersupport";
 import { setTimeout } from "timers";
 import SideMenu from "../components/SideMenu";
 // import Vue2LeafletMarkerCluster from "vue2-leaflet-markercluster";
@@ -128,7 +114,8 @@ export default {
       url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      marker: L.latLng(47.41322, -1.219482)
+      marker: L.latLng(47.41322, -1.219482),
+      selectedCategories: []
     };
   },
 
@@ -137,6 +124,9 @@ export default {
     attractions() {
       const attractions = this.$store.getters["attractions"];
       return attractions;
+    },
+    categories() {
+      return this.$store.getters["categories"];
     }
   },
 
@@ -146,7 +136,7 @@ export default {
     //   rightOption: { show: true, name: "城市", link: "cities" }
     // });
     // // this.addControl(new locateControl());
-
+    this.SET_HEADER({ title: this.$t("Map") });
     this.loadAttractionsAndCategories();
     var mymap = L.map("map").setView([51.505, -0.09], 13);
     this.map = mymap;
@@ -237,5 +227,9 @@ export default {
 #map {
   width: 100%;
   height: 100%;
+}
+
+.menu-item {
+  cursor: pointer;
 }
 </style>
