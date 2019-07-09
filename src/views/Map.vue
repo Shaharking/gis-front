@@ -31,48 +31,19 @@
       <div class="leaflet-sidebar-content">
         <div class="leaflet-sidebar-pane" id="home">
           <h1 class="leaflet-sidebar-header">
-            sidebar-v2
+            Actions
             <span class="leaflet-sidebar-close">
               <i class="fa fa-caret-left"></i>
             </span>
           </h1>
 
-          <p>
-            A responsive sidebar for the mapping library
-            <a href="http://leafletjs.com/">Leaflet</a>.
-          </p>
-          <p>Compatible with version 0.7 and 1.x (tested up to 1.2.0)</p>
-          <p>
-            <b>Select the other panes for a showcase of each feature.</b>
-          </p>
-
-          <h2>More examples</h2>
-          <ul>
-            <li>
-              <a href="./position-right.html">Right aligned</a>
-            </li>
-            <li>
-              <a href="./halfheight.html">The sidebar adapts to map container size</a>
-            </li>
-            <li>
-              <a
-                href="./leaflet-latest.html"
-              >Proof that it works with the latest leaflet version (if not, please report it!)</a>
-            </li>
-          </ul>
-
-          <p
-            class="lorem"
-          >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-          <p
-            class="lorem"
-          >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-          <p
-            class="lorem"
-          >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-          <p
-            class="lorem"
-          >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+          <v-ons-list>
+            <v-ons-list-header>Default</v-ons-list-header>
+            <v-ons-list-item class="menu-item">Home</v-ons-list-item>
+            <v-ons-list-item class="menu-item">Existing travel</v-ons-list-item>
+            <v-ons-list-item class="menu-item">Create a new trip</v-ons-list-item>
+            <v-ons-list-item class="menu-item">List of attractions</v-ons-list-item>
+          </v-ons-list>
         </div>
 
         <div class="leaflet-sidebar-pane" id="autopan">
@@ -117,18 +88,24 @@ import "leaflet.markercluster/dist/leaflet.markercluster-src";
 import { setTimeout } from "timers";
 import SideMenu from "../components/SideMenu";
 // import Vue2LeafletMarkerCluster from "vue2-leaflet-markercluster";
+import "leaflet.featuregroup.subgroup";
+import "leaflet-sidebar-v2/js/leaflet-sidebar";
+import "leaflet-search/dist/leaflet-search.src";
 
 export default {
   data() {
     return {
       map: undefined,
       attractionsCluster: undefined,
+      attractionGroups: [],
+      control: undefined,
       zoom: 13,
       center: L.latLng(47.41322, -1.219482),
       url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      marker: L.latLng(47.41322, -1.219482)
+      marker: L.latLng(47.41322, -1.219482),
+      selectedCategories: []
     };
   },
 
@@ -137,6 +114,11 @@ export default {
     attractions() {
       const attractions = this.$store.getters["attractions"];
       return attractions;
+    },
+    categories() {
+      const categories = this.$store.getters["categories"];
+      console.log(categories);
+      return categories;
     }
   },
 
@@ -146,9 +128,9 @@ export default {
     //   rightOption: { show: true, name: "城市", link: "cities" }
     // });
     // // this.addControl(new locateControl());
-
+    this.SET_HEADER({ title: this.$t("Map") });
     this.loadAttractionsAndCategories();
-    var mymap = L.map("map").setView([51.505, -0.09], 13);
+    var mymap = L.map("map").setView([52.37403, 4.88969], 13);
     this.map = mymap;
     const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
     const streetMapUrl = "http://{s}.tile.osm.org/{z}/{x}/{y}.png";
@@ -159,18 +141,28 @@ export default {
     }).addTo(mymap);
 
     L.control.locate().addTo(mymap);
+    var control = L.control.layers(null, null, { collapsed: false });
+    this.control = control;
 
     var cluster = L.markerClusterGroup({
       maxClusterRadius: 80,
       chunkedLoading: true
-    }).addTo(mymap);
+    });
+
+    cluster.addTo(mymap);
 
     this.attractionsCluster = cluster;
 
-    var sidebar = L.control
-      .sidebar({ container: "sidebar" })
-      .addTo(mymap)
-      .open("profile");
+    //
+    try {
+      var sidebar = L.control
+        .sidebar({ container: "sidebar" })
+        .addTo(mymap)
+        .open("profile");
+    } catch (ex) {}
+
+    // var searchLayer = L.layerGroup().addTo(mymap);
+    mymap.addControl(new L.Control.Search({ layer: cluster }));
   },
 
   methods: {
@@ -206,6 +198,14 @@ export default {
   watch: {
     attractions() {
       console.log(this.attractions);
+      this.categories.forEach(category => {
+        if (!this.attractionGroups[category.category_name]) {
+          var group = L.featureGroup.subGroup(this.attractionsCluster);
+          this.attractionGroups[category.category_name] = group;
+          this.control.addOverlay(group, category.category_name);
+          group.addTo(this.map);
+        }
+      });
       //var markers = L.markerClusterGroup({ chunkedLoading: true });
       var cities = [];
       this.attractions.forEach(attraction => {
@@ -215,13 +215,51 @@ export default {
           title: title,
           icon: this.getIcon(attraction.category)
         });
-        marker.bindPopup(`${title} <br/> ${attraction.category}`);
-        marker.addTo(this.attractionsCluster);
+        marker.bindPopup(
+          `${title} <br/> ${attraction.category} </br> Loading...`
+        );
+        (attraction => {
+          marker.on("click", e => {
+            var popup = e.target.getPopup();
+            var url = attraction.description;
+            fetch(url)
+              .then(response => {
+                return response.json();
+              })
+              .then(data => {
+                var links = Object.keys(data.external_urls)
+                  .filter(key => {
+                    return !!data.external_urls[key];
+                  })
+                  .map(key => {
+                    return `<a href=" ${
+                      data.external_urls[key]
+                    }" target="_blank"> ${data.external_urls[key]} </a> <br/>`;
+                  });
+
+                popup.setContent(`
+                  ${attraction.name} <br/>
+                  ${data.address ? `Address: ${data.address} <br/> ` : ""}
+                  Category: ${data.category}  <br/>
+                  ${data.description.en}  <br/>
+                  More information on:  <br/>
+                  ${links}
+                `);
+                popup.update();
+              });
+          });
+        })(attraction);
+
+        var group = this.attractionGroups[attraction.category];
+        //marker.addTo(this.attractionsCluster);
+        marker.addTo(group);
         //markers.addLayer(marker);
       });
+      this.control.addTo(this.map);
       // this.map.addLayer(markers);
     }
-  }
+  },
+  categories() {}
 };
 </script>
 
@@ -237,5 +275,9 @@ export default {
 #map {
   width: 100%;
   height: 100%;
+}
+
+.menu-item {
+  cursor: pointer;
 }
 </style>
