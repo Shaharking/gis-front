@@ -10,17 +10,12 @@
               <i class="fa fa-bars active"></i>
             </a>
           </li>
-          <li>
-            <a href="#autopan" role="tab">
-              <i class="fa fa-arrows"></i>
-            </a>
-          </li>
         </ul>
 
         <!-- bottom aligned tabs -->
         <ul role="tablist">
           <li>
-            <a href="https://github.com/nickpeihl/leaflet-sidebar-v2">
+            <a href="https://github.com/Shaharking/gis-front">
               <i class="fa fa-github"></i>
             </a>
           </li>
@@ -44,23 +39,6 @@
             <v-ons-list-item class="menu-item">Create a new trip</v-ons-list-item>
             <v-ons-list-item class="menu-item">List of attractions</v-ons-list-item>
           </v-ons-list>
-        </div>
-
-        <div class="leaflet-sidebar-pane" id="autopan">
-          <h1 class="leaflet-sidebar-header">
-            autopan
-            <span class="leaflet-sidebar-close">
-              <i class="fa fa-caret-left"></i>
-            </span>
-          </h1>
-          <p>
-            <code>Leaflet.control.sidebar({ autopan: true })</code>
-            makes shure that the map center always stays visible.
-          </p>
-          <p>
-            The autopan behviour is responsive as well.
-            Try opening and closing the sidebar from this pane!
-          </p>
         </div>
 
         <div class="leaflet-sidebar-pane" id="messages">
@@ -267,14 +245,15 @@ export default {
 /* @import "https://cdn.bootcss.com/leaflet/1.0.3/leaflet.css";
 @import "~leaflet.locatecontrol/dist/L.Control.Locate.css";
 @import "//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"; */
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.min.css");
+/* @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.min.css"); */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css");
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 @import "https://cdnjs.cloudflare.com/ajax/libs/ionicons/1.5.2/css/ionicons.min.css";
 
 #map {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 10px);
 }
 
 .menu-item {
