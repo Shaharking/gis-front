@@ -46,21 +46,14 @@
           </v-ons-list>
         </div>
 
-        <div class="leaflet-sidebar-pane" id="autopan">
+        <div class="trip-attractions" id="autopan">
           <h1 class="leaflet-sidebar-header">
-            autopan
+            <div class="menu">Menu</div>
             <span class="leaflet-sidebar-close">
               <i class="fa fa-caret-left"></i>
             </span>
           </h1>
-          <p>
-            <code>Leaflet.control.sidebar({ autopan: true })</code>
-            makes shure that the map center always stays visible.
-          </p>
-          <p>
-            The autopan behviour is responsive as well.
-            Try opening and closing the sidebar from this pane!
-          </p>
+          <new-trip></new-trip>
         </div>
 
         <div class="leaflet-sidebar-pane" id="messages">
@@ -87,12 +80,16 @@ import L from "leaflet";
 import "leaflet.markercluster/dist/leaflet.markercluster-src";
 import { setTimeout } from "timers";
 import SideMenu from "../components/SideMenu";
+import NewTrip from "../components/newTrip";
 // import Vue2LeafletMarkerCluster from "vue2-leaflet-markercluster";
 import "leaflet.featuregroup.subgroup";
 import "leaflet-sidebar-v2/js/leaflet-sidebar";
 import "leaflet-search/dist/leaflet-search.src";
 
 export default {
+  components: {
+    NewTrip
+  },
   data() {
     return {
       map: undefined,
@@ -232,9 +229,7 @@ export default {
                     return !!data.external_urls[key];
                   })
                   .map(key => {
-                    return `<a href=" ${
-                      data.external_urls[key]
-                    }" target="_blank"> ${data.external_urls[key]} </a> <br/>`;
+                    return `<a href=" ${data.external_urls[key]}" target="_blank"> ${data.external_urls[key]} </a> <br/>`;
                   });
 
                 popup.setContent(`
@@ -244,7 +239,9 @@ export default {
                   ${data.description.en}  <br/>
                   More information on:  <br/>
                   ${links}
+                  
                 `);
+
                 popup.update();
               });
           });
@@ -279,5 +276,14 @@ export default {
 
 .menu-item {
   cursor: pointer;
+}
+
+.trip-attractions {
+  width: 1000px;
+}
+
+.menu {
+  color: black;
+  font-size: 120%;
 }
 </style>

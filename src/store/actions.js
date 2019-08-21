@@ -37,6 +37,18 @@ export const loadDailyWeather = ({ commit, state }) => {
   });
 };
 
+export const setMenuState = ({ commit, state }, payload) => {
+  commit("SET_MENU", payload);
+};
+
+export const emptyTripAttraction = ({ commit, state }) => {
+  commit("CLEAN_TRIPATTRACTION");
+};
+
+export const deleteSpecificAttraction = ({ commit, state }, payload) => {
+  commit("DELETE_ATTRACION", payload);
+};
+
 export const fetchAttractions = ({ commit, state }) => {
   getAttractions().then(res => {
     commit("SET_ATTRACTIONS", res.data);
@@ -47,6 +59,10 @@ export const fetchCategories = ({ commit, state }) => {
   getCategories().then(res => {
     commit("SET_CATEGORIES", res.data);
   });
+};
+
+export const tripAttractions = ({ commit, state }) => {
+  commit("PUSH_TRIP_ATTRACTION", payload);
 };
 
 export const userLogin = ({ commit, state }, payload) => {

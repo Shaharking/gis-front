@@ -17,6 +17,10 @@ const state = {
     },
     leftOption: {}
   },
+
+  menuState: "main_menu",
+
+  tripAttractions: [],
   categories: [],
   attractions: [],
   direction: "forward",

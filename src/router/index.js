@@ -43,6 +43,10 @@ const routes = [
   {
     path: "/register",
     component: resolve => require(["../views/Register"], resolve)
+  },
+  {
+    path: "/newtrip",
+    component: resolve => require(["../components/newTrip"], resolve)
   }
 ];
 
