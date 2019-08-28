@@ -29,6 +29,28 @@ import "./assets/leaflet.awesome-markers.min.js";
 import "./assets/leaflet.awesome-markers.css";
 // const componentsLocales = require("json-loader!yaml-loader!vux/src/locales/components.yml");
 import locales from "./locales/locales";
+import PortalVue from "portal-vue";
+
+import VueCtkDateTimePicker from "vue-ctk-date-time-picker";
+import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css";
+
+import axios from "axios";
+
+axios.interceptors.request.use(
+  config => {
+    let token = store.getters.user.token;
+    if (token) {
+      config.headers["authorization"] = `${token}`;
+    }
+    return config;
+  },
+
+  error => {
+    return Promise.reject(error);
+  }
+);
+
+Vue.component("VueCtkDateTimePicker", VueCtkDateTimePicker);
 
 Vue.use(DevicePlugin);
 Vue.use(AjaxPlugin);
@@ -36,6 +58,7 @@ Vue.use(vuexI18n.plugin, store);
 // Vue.use(VueLeaflet.plugin, store);
 Vue.use(VueMeta);
 Vue.use(VueOnsen);
+Vue.use(PortalVue);
 
 // Vue.component("l-map", LMap);
 // Vue.component("l-tile-layer", LTileLayer);

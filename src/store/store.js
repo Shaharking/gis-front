@@ -4,9 +4,10 @@ import * as actions from "./actions";
 
 const state = {
   user: {
-    email: undefined,
+    email: "abc@abc.com",
     name: undefined,
-    token: undefined
+    token:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTY3MDExNzMwfQ.4aPDKHEHu-93bwoG_NyssqkxUwB5TX8_NvKQqqUrJWQ"
   },
   header: {
     title: "地图",

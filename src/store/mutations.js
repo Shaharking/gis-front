@@ -25,8 +25,8 @@ export default {
     state.selectedNames.splice(start, 1);
   },
 
-  [types.DELETE_ATTRACION](state, name) {
-    state.tripAttraction.remove(name);
+  [types.DELETE_ATTRACION](state, index) {
+    state.tripAttractions.splice(index, 1);
   },
 
   [types.CLEAN_TRIPATTRACTION](state) {
