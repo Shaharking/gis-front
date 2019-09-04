@@ -28,3 +28,5 @@ export const attractions = state => state.attractions;
 export const categories = state => state.categories;
 
 export const user = state => state.user;
+
+export const tripAttractions = state => state.tripAttractions;

@@ -13,9 +13,24 @@ export default {
     state.now.cityName = name;
   },
 
+  [types.SET_MENU](state, name) {
+    state.menuState = name;
+  },
+  [types.PUSH_TRIP_ATTRACTION](state, tripAttraction) {
+    state.tripAttractions.push(tripAttraction);
+  },
+
   [types.DELETE_CITY](state, name) {
     const start = state.selectedNames.indexOf(name);
     state.selectedNames.splice(start, 1);
+  },
+
+  [types.DELETE_ATTRACION](state, index) {
+    state.tripAttractions.splice(index, 1);
+  },
+
+  [types.CLEAN_TRIPATTRACTION](state) {
+    state.tripAttractions = [];
   },
 
   [types.TOGGLE_CITY](state, name) {

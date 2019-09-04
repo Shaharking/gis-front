@@ -10,6 +10,16 @@
               <i class="fa fa-bars active"></i>
             </a>
           </li>
+          <li>
+            <a href="#autopan" role="tab">
+              <i class="fa fa-arrows"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#messages" role="tab">
+              <i class="fa fa-arrows"></i>
+            </a>
+          </li>
         </ul>
 
         <!-- bottom aligned tabs -->
@@ -41,6 +51,16 @@
           </v-ons-list>
         </div>
 
+        <div class="trip-attractions" id="autopan">
+          <h1 class="leaflet-sidebar-header">
+            Menu
+            <span class="leaflet-sidebar-close">
+              <i class="fa fa-caret-left"></i>
+            </span>
+          </h1>
+          <new-trip></new-trip>
+        </div>
+
         <div class="leaflet-sidebar-pane" id="messages">
           <h1 class="leaflet-sidebar-header">
             Messages
@@ -65,12 +85,20 @@ import L from "leaflet";
 import "leaflet.markercluster/dist/leaflet.markercluster-src";
 import { setTimeout } from "timers";
 import SideMenu from "../components/SideMenu";
+import NewTrip from "../components/newTrip";
 // import Vue2LeafletMarkerCluster from "vue2-leaflet-markercluster";
 import "leaflet.featuregroup.subgroup";
 import "leaflet-sidebar-v2/js/leaflet-sidebar";
 import "leaflet-search/dist/leaflet-search.src";
 
+function myFunction() {
+  console.log("i got clicked");
+}
+
 export default {
+  components: {
+    NewTrip
+  },
   data() {
     return {
       map: undefined,
@@ -141,6 +169,29 @@ export default {
 
     // var searchLayer = L.layerGroup().addTo(mymap);
     mymap.addControl(new L.Control.Search({ layer: cluster }));
+
+    document.addEventListener(
+      "click",
+      event => {
+        if (event.target.matches(".add-attraction-trip")) {
+          // Run your code to open a modal
+          let attributes = event.target.attributes;
+          attributes = Object.keys(attributes).reduce((acc, x) => {
+            Object.assign(acc, {
+              [attributes[x].name]: attributes[x].value
+            });
+            return acc;
+          }, {});
+          const attractionId = attributes["data-attraction-id"];
+          this.$store.dispatch("addTripAttraction", {
+            attraction_id: attractionId,
+            date_from: undefined,
+            date_to: undefined
+          });
+        }
+      },
+      false
+    );
   },
 
   methods: {
@@ -171,6 +222,9 @@ export default {
     },
     boundsUpdated(bounds) {
       this.bounds = bounds;
+    },
+    myFunction() {
+      console.log("saasds");
     }
   },
   watch: {
@@ -210,9 +264,7 @@ export default {
                     return !!data.external_urls[key];
                   })
                   .map(key => {
-                    return `<a href=" ${
-                      data.external_urls[key]
-                    }" target="_blank"> ${data.external_urls[key]} </a> <br/>`;
+                    return `<a href=" ${data.external_urls[key]}" target="_blank"> ${data.external_urls[key]} </a> <br/>`;
                   });
 
                 popup.setContent(`
@@ -222,7 +274,11 @@ export default {
                   ${data.description.en}  <br/>
                   More information on:  <br/>
                   ${links}
+                  <button class="add-attraction-trip" data-attraction-id="${
+                    attraction.id
+                  }" >Click me</button>
                 `);
+
                 popup.update();
               });
           });
@@ -258,5 +314,22 @@ export default {
 
 .menu-item {
   cursor: pointer;
+}
+
+.trip-attractions {
+  /* width: 1000px; */
+}
+
+.menu {
+  color: black;
+  font-size: 120%;
+}
+
+.leaflet-sidebar-header {
+  margin: 0 0px 0;
+}
+
+.leaflet-sidebar-pane {
+  padding: 0 0 0;
 }
 </style>
