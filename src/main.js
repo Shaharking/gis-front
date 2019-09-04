@@ -124,7 +124,7 @@ new Vue({
   router,
   store,
   metaInfo: () => ({
-    title: "小好应用",
+    title: "GIS PRO",
     htmlAttrs: {
       lang: "en"
     },

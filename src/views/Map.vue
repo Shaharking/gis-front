@@ -10,6 +10,7 @@
               <i class="fa fa-bars active"></i>
             </a>
           </li>
+<<<<<<< HEAD
           <li>
             <a href="#autopan" role="tab">
               <i class="fa fa-arrows"></i>
@@ -20,12 +21,14 @@
               <i class="fa fa-arrows"></i>
             </a>
           </li>
+=======
+>>>>>>> 693f18fa04bd446e65beea47804315234fd91513
         </ul>
 
         <!-- bottom aligned tabs -->
         <ul role="tablist">
           <li>
-            <a href="https://github.com/nickpeihl/leaflet-sidebar-v2">
+            <a href="https://github.com/Shaharking/gis-front">
               <i class="fa fa-github"></i>
             </a>
           </li>
@@ -51,6 +54,7 @@
           </v-ons-list>
         </div>
 
+<<<<<<< HEAD
         <div class="trip-attractions" id="autopan">
           <h1 class="leaflet-sidebar-header">
             Menu
@@ -61,6 +65,8 @@
           <new-trip></new-trip>
         </div>
 
+=======
+>>>>>>> 693f18fa04bd446e65beea47804315234fd91513
         <div class="leaflet-sidebar-pane" id="messages">
           <h1 class="leaflet-sidebar-header">
             Messages
@@ -301,14 +307,15 @@ export default {
 /* @import "https://cdn.bootcss.com/leaflet/1.0.3/leaflet.css";
 @import "~leaflet.locatecontrol/dist/L.Control.Locate.css";
 @import "//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"; */
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.min.css");
+/* @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.min.css"); */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css");
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 @import "https://cdnjs.cloudflare.com/ajax/libs/ionicons/1.5.2/css/ionicons.min.css";
 
 #map {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 10px);
 }
 
 .menu-item {
