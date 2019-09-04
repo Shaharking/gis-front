@@ -1,28 +1,53 @@
 <template>
   <div>
-    <div class="wrapper">
-      <div>
-        <div
-          class="attraction-wrapper"
-          v-for="(attraction, $index) in tripAttractionsData"
-          :key="attraction.attraction_id"
+    <svg style="display:none;">
+      <defs>
+        <g
+          id="cross"
+          viewBox="0 0 24 24"
+          stroke="none"
+          stroke-width="1"
+          fill="none"
+          fill-rule="evenodd"
         >
-          <div>
-            <div>
+          <g fill-rule="nonzero" fill="#000000">
+            <path
+              d="M12,10.5857864 L6.20710678,4.79289322 L6.20710678,4.79289322 C5.81658249,4.40236893 5.18341751,4.40236893 4.79289322,4.79289322 L4.79289322,4.79289322 L4.79289322,4.79289322 C4.40236893,5.18341751 4.40236893,5.81658249 4.79289322,6.20710678 L4.79289322,6.20710678 L10.5857864,12 L4.79289322,17.7928932 L4.79289322,17.7928932 C4.40236893,18.1834175 4.40236893,18.8165825 4.79289322,19.2071068 L4.79289322,19.2071068 L4.79289322,19.2071068 C5.18341751,19.5976311 5.81658249,19.5976311 6.20710678,19.2071068 L12,13.4142136 L17.7928932,19.2071068 L17.7928932,19.2071068 C18.1834175,19.5976311 18.8165825,19.5976311 19.2071068,19.2071068 C19.5976311,18.8165825 19.5976311,18.1834175 19.2071068,17.7928932 L13.4142136,12 L19.2071068,6.20710678 C19.5976311,5.81658249 19.5976311,5.18341751 19.2071068,4.79289322 L19.2071068,4.79289322 L19.2071068,4.79289322 C18.8165825,4.40236893 18.1834175,4.40236893 17.7928932,4.79289322 L17.7928932,4.79289322 L12,10.5857864 Z"
+            />
+          </g>
+        </g>
+      </defs>
+    </svg>
+    <div class="wrapper">
+      <div class="attraction-wrapper">
+        <div v-for="(attraction, $index) in tripAttractionsData" :key="attraction.attraction_id">
+          <div
+            style="display: inline-flex;width: 100%;justify-content: space-around;padding-bottom:8px;"
+          >
+            <span>
               <img
                 class="attraction-picture"
                 width="100%"
                 height="100%"
                 :src="categoriesPictures[attraction.attractionDetails.category]"
               />
-            </div>
-            <div>
-              <div class="name">{{ attraction.attractionDetails.name}}</div>
-              <div class="category">{{ attraction.attractionDetails.category }}</div>
+            </span>
+            <span>
+              <span class="name">{{ attraction.attractionDetails.name}}</span>
+              <span class="category">{{ attraction.attractionDetails.category }}</span>
               <div class="address">Bosbaanweg 5, Amstelveen</div>
-            </div>
+            </span>
+            <span class="actions">
+              <svg
+                class="icon"
+                style="width: 24px;height: 24px; cursor:pointer;"
+                @click="deleteAttractionFromTrip($event, $index)"
+              >
+                <use xlink:href="#cross" />
+              </svg>
+            </span>
           </div>
-          <div>
+          <div style="display: inline-flex;">
             <div>
               <VueCtkDateTimePicker
                 :only-date="true"
@@ -51,9 +76,6 @@
                 input-size="sm"
               />
             </div>
-          </div>
-          <div class="actions">
-            <input type="button" @click="deleteAttractionFromTrip($event, $index)" value="Delete" />
           </div>
         </div>
       </div>
