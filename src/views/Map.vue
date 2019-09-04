@@ -11,11 +11,6 @@
             </a>
           </li>
           <li>
-            <a href="#autopan" role="tab">
-              <i class="fa fa-arrows"></i>
-            </a>
-          </li>
-          <li>
             <a href="#messages" role="tab">
               <i class="fa fa-arrows"></i>
             </a>
@@ -42,23 +37,21 @@
             </span>
           </h1>
 
-          <v-ons-list>
-            <v-ons-list-header>Default</v-ons-list-header>
-            <v-ons-list-item class="menu-item">Home</v-ons-list-item>
-            <v-ons-list-item class="menu-item">Existing travel</v-ons-list-item>
-            <v-ons-list-item class="menu-item">Create a new trip</v-ons-list-item>
-            <v-ons-list-item class="menu-item">List of attractions</v-ons-list-item>
-          </v-ons-list>
-        </div>
-
-        <div class="trip-attractions" id="autopan">
-          <h1 class="leaflet-sidebar-header">
-            Menu
-            <span class="leaflet-sidebar-close">
-              <i class="fa fa-caret-left"></i>
-            </span>
-          </h1>
-          <new-trip></new-trip>
+          <div v-if="menuState === 'main_menu'">
+            <v-ons-list>
+              <v-ons-list-header>Default</v-ons-list-header>
+              <v-ons-list-item class="menu-item">Home</v-ons-list-item>
+              <v-ons-list-item class="menu-item">My trips</v-ons-list-item>
+              <v-ons-list-item class="menu-item" @click="setMenuState('new_trip')">Create a new trip</v-ons-list-item>
+              <v-ons-list-item
+                class="menu-item"
+                @click="setMenuState('my_trip')"
+              >List of attractions</v-ons-list-item>
+            </v-ons-list>
+          </div>
+          <div v-if="menuState === 'new_trip'">
+            <new-trip></new-trip>
+          </div>
         </div>
 
         <div class="leaflet-sidebar-pane" id="messages">
@@ -125,6 +118,9 @@ export default {
       const categories = this.$store.getters["categories"];
       console.log(categories);
       return categories;
+    },
+    menuState() {
+      return this.$store.getters["menuState"];
     }
   },
 
@@ -195,6 +191,9 @@ export default {
   },
 
   methods: {
+    setMenuState(state) {
+      this.$store.dispatch("setMenuState", state);
+    },
     ...mapMutations(["SET_HEADER"]), //,"addControl"]),
     loadAttractionsAndCategories() {
       this.$store.dispatch("fetchCategories").then(res => {

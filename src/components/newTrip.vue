@@ -81,6 +81,7 @@
       </div>
     </div>
     <div>
+      <button @click="backToMenu">back</button>
       <button @click="CreateTrips">Create trip</button>
     </div>
   </div>
@@ -142,6 +143,9 @@ export default {
     },
     CreateTrips() {
       this.$store.dispatch("createTrip", this.tripAttractions);
+    },
+    backToMenu() {
+      this.$store.dispatch("setMenuState", "main_menu");
     }
   }
 };
