@@ -10,7 +10,6 @@
               <i class="fa fa-bars active"></i>
             </a>
           </li>
-<<<<<<< HEAD
           <li>
             <a href="#autopan" role="tab">
               <i class="fa fa-arrows"></i>
@@ -21,8 +20,6 @@
               <i class="fa fa-arrows"></i>
             </a>
           </li>
-=======
->>>>>>> 693f18fa04bd446e65beea47804315234fd91513
         </ul>
 
         <!-- bottom aligned tabs -->
@@ -54,7 +51,6 @@
           </v-ons-list>
         </div>
 
-<<<<<<< HEAD
         <div class="trip-attractions" id="autopan">
           <h1 class="leaflet-sidebar-header">
             Menu
@@ -65,8 +61,6 @@
           <new-trip></new-trip>
         </div>
 
-=======
->>>>>>> 693f18fa04bd446e65beea47804315234fd91513
         <div class="leaflet-sidebar-pane" id="messages">
           <h1 class="leaflet-sidebar-header">
             Messages
