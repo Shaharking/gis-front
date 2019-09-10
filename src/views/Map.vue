@@ -52,6 +52,7 @@
           <div v-if="menuState === 'new_trip'">
             <new-trip></new-trip>
           </div>
+          <div v-if="menuState === 'my_trip'"></div>
         </div>
 
         <div class="leaflet-sidebar-pane" id="messages">

@@ -18,9 +18,16 @@
         </g>
       </defs>
     </svg>
+    <div>
+      <h2 style="padding: 0 0 8px 0; border-bottom: 1px solid black;">New Trip</h2>
+    </div>
     <div class="wrapper">
-      <div class="attraction-wrapper">
-        <div v-for="(attraction, $index) in tripAttractionsData" :key="attraction.attraction_id">
+      <div
+        class="attraction-wrapper"
+        v-for="(attraction, $index) in tripAttractionsData"
+        :key="attraction.attraction_id"
+      >
+        <div>
           <div
             style="display: inline-flex;width: 100%;justify-content: space-around;padding-bottom:8px;"
           >
@@ -54,12 +61,14 @@
                 v-model="attraction.attraction.date_from"
                 :formatted="'YYYY-MM-DD'"
                 input-size="sm"
+                label="from(date)"
               />
               <VueCtkDateTimePicker
                 :only-time="true"
                 v-model="attraction.attraction.date_from"
                 :formatted="'hh:mm'"
                 input-size="sm"
+                label="to(date)"
               />
             </div>
             <div>
@@ -145,6 +154,7 @@ export default {
       this.$store.dispatch("createTrip", this.tripAttractions);
     },
     backToMenu() {
+      this.$store.dispatch("emptyTripAttraction");
       this.$store.dispatch("setMenuState", "main_menu");
     }
   }
