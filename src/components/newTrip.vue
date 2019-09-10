@@ -62,13 +62,15 @@
                 :formatted="'YYYY-MM-DD'"
                 input-size="sm"
                 label="from(date)"
+                class="new-trip-date-picker"
               />
               <VueCtkDateTimePicker
                 :only-time="true"
                 v-model="attraction.attraction.date_from"
                 :formatted="'hh:mm'"
                 input-size="sm"
-                label="to(date)"
+                label="from(time)"
+                class="new-trip-time-picker"
               />
             </div>
             <div>
@@ -77,19 +79,23 @@
                 v-model="attraction.attraction.date_to"
                 :formatted="'YYYY-MM-DD'"
                 input-size="sm"
+                label="to(date)"
+                class="new-trip-date-picker"
               />
               <VueCtkDateTimePicker
                 :only-time="true"
                 v-model="attraction.attraction.date_to"
                 :formatted="'hh:mm'"
                 input-size="sm"
+                label="to(time)"
+                class="new-trip-time-picker"
               />
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div>
+    <div style="margin-top: 8px;">
       <button class="btn btn-default" @click="backToMenu">back</button>
       <button class="btn btn-success" @click="CreateTrips">Create trip</button>
     </div>
@@ -199,6 +205,11 @@ export default {
 
 .date-wrapper {
   margin-bottom: 8px;
+}
+
+.new-trip-date-picker,
+.new-trip-time-picker {
+  padding: 4px;
 }
 </style>  
 
