@@ -269,7 +269,7 @@ export default {
 
                 let addTripBtn = "";
                 if (this.menuState === "new_trip") {
-                  addTripBtn = `<button class="add-attraction-trip" data-attraction-id="${attraction.id}" > Add attraction to trip</button>`;
+                  addTripBtn = `<button class="btn btn-success add-attraction-trip" data-attraction-id="${attraction.id}" > Add attraction to trip</button>`;
                 }
 
                 popup.setContent(`
@@ -334,5 +334,9 @@ export default {
 
 .leaflet-sidebar-pane {
   padding: 0 0 0;
+}
+
+.add-attraction-trip {
+  margin-top: 8px;
 }
 </style>

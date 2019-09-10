@@ -90,8 +90,8 @@
       </div>
     </div>
     <div>
-      <button @click="backToMenu">back</button>
-      <button @click="CreateTrips">Create trip</button>
+      <button class="btn btn-default" @click="backToMenu">back</button>
+      <button class="btn btn-success" @click="CreateTrips">Create trip</button>
     </div>
   </div>
 </template>
