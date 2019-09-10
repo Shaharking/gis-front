@@ -18,9 +18,22 @@
         </g>
       </defs>
     </svg>
-    <div class="wrapper">
-      <div class="attraction-wrapper">
-        <div v-for="(attraction, $index) in tripAttractionsData" :key="attraction.attraction_id">
+    <div>
+      <h2 style="padding: 0 0 8px 0; border-bottom: 1px solid black;">New Trip</h2>
+    </div>
+    <div class="wrapper" v-if="tripAttractionsData.length === 0">
+      <p style="font-size: 14px">
+        Add attractions by clicking on them on the map
+        <br />Then click on "Add attraction to trip"
+      </p>
+    </div>
+    <div class="wrapper" v-if="tripAttractionsData.length > 0">
+      <div
+        class="attraction-wrapper"
+        v-for="(attraction, $index) in tripAttractionsData"
+        :key="attraction.attraction_id"
+      >
+        <div>
           <div
             style="display: inline-flex;width: 100%;justify-content: space-around;padding-bottom:8px;"
           >
@@ -51,38 +64,48 @@
             <div>
               <VueCtkDateTimePicker
                 :only-date="true"
-                v-model="attraction.attraction.date_from"
+                :value="attraction.attraction.date_from"
+                @input="updateDateTimeByDate(attraction.attraction, 'date_from', $event)"
                 :formatted="'YYYY-MM-DD'"
                 input-size="sm"
+                label="from(date)"
+                class="new-trip-date-picker"
               />
-              <VueCtkDateTimePicker
-                :only-time="true"
-                v-model="attraction.attraction.date_from"
-                :formatted="'hh:mm'"
-                input-size="sm"
-              />
+              <timeselector
+                class="form-control new-trip-time-picker"
+                :value="attraction.attraction.date_from"
+                @input="updateDateTimeByTime(attraction.attraction, 'date_from', $event)"
+                @cleared="clearDatetimeTime(attraction.attraction, 'date_from')"
+              ></timeselector>
             </div>
             <div>
               <VueCtkDateTimePicker
                 :only-date="true"
-                v-model="attraction.attraction.date_to"
+                :value="attraction.attraction.date_to"
+                @input="updateDateTimeByDate(attraction.attraction, 'date_to', $event)"
                 :formatted="'YYYY-MM-DD'"
                 input-size="sm"
+                label="to(date)"
+                class="new-trip-date-picker"
               />
-              <VueCtkDateTimePicker
-                :only-time="true"
-                v-model="attraction.attraction.date_to"
-                :formatted="'hh:mm'"
-                input-size="sm"
-              />
+              <timeselector
+                class="form-control new-trip-time-picker"
+                :value="attraction.attraction.date_to"
+                @input="updateDateTimeByTime(attraction.attraction, 'date_to', $event)"
+                @cleared="clearDatetimeTime(attraction.attraction, 'date_to')"
+              ></timeselector>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div>
-      <button @click="backToMenu">back</button>
-      <button @click="CreateTrips">Create trip</button>
+    <div style="margin-top: 8px;">
+      <button class="btn btn-default" @click="backToMenu">back</button>
+      <button
+        class="btn btn-success"
+        :disabled="tripAttractionsData.length === 0"
+        @click="CreateTrips"
+      >Create trip</button>
     </div>
   </div>
 </template>
@@ -105,8 +128,13 @@ Use @onclick for “Create new trip” button to dispatch the action that send t
 */
 
 import categoriesPictures from "./../utils/categoriesPictures";
+import dayjs from "dayjs";
+import Timeselector from "vue-timeselector";
 
 export default {
+  components: {
+    Timeselector
+  },
   data() {
     return {
       categoriesPictures
@@ -142,9 +170,40 @@ export default {
       this.$store.dispatch("deleteSpecificAttraction", index);
     },
     CreateTrips() {
-      this.$store.dispatch("createTrip", this.tripAttractions);
+      const tripAttractions = this.tripAttractions;
+      this.$store.dispatch("createTrip", tripAttractions);
+    },
+    updateDateTimeByDate(obj, prop, date) {
+      let parsedDate = dayjs(date);
+      if (parsedDate) {
+        parsedDate
+          .set("hour", 0)
+          .set("minute", 0)
+          .set("second", 0);
+        obj[prop] = parsedDate.toDate();
+      }
+    },
+    updateDateTimeByTime(obj, prop, time) {
+      let parsedDate = dayjs(time);
+      if (obj[prop] && time) {
+        obj[prop] = dayjs(obj[prop])
+          .set("hour", parsedDate.get("hour"))
+          .set("minute", parsedDate.get("minute"))
+          .set("second", 0)
+          .toDate();
+      }
+    },
+    clearDatetimeTime(obj, prop) {
+      if (obj[prop]) {
+        const parsedDate = dayjs(obj[prop])
+          .set("hour", 0)
+          .set("minute", 0)
+          .set("second", 0);
+        obj[prop] = parsedDate.toDate();
+      }
     },
     backToMenu() {
+      this.$store.dispatch("emptyTripAttraction");
       this.$store.dispatch("setMenuState", "main_menu");
     }
   }
@@ -189,6 +248,19 @@ export default {
 
 .date-wrapper {
   margin-bottom: 8px;
+}
+
+.new-trip-date-picker {
+  padding: 4px;
+}
+
+.new-trip-time-picker {
+  margin: 0 4px;
+  width: calc(100% - 8px);
+}
+
+.vtimeselector__input {
+  border: 0;
 }
 </style>  
 

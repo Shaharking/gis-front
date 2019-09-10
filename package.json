@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
+    "dayjs": "^1.8.16",
     "fastclick": "^1.0.6",
     "jsonp": "^0.2.1",
     "leaflet": "^1.1.0",
@@ -28,6 +29,7 @@
     "vue-meta": "^0.5.6",
     "vue-onsenui": "^2.6.2",
     "vue-router": "^2.5.3",
+    "vue-timeselector": "^0.1.7",
     "vue2-leaflet": "^2.1.1",
     "vue2-leaflet-markercluster": "^3.0.0",
     "vueleaflet": "^2.1.0",
