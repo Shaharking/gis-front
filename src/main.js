@@ -59,6 +59,7 @@ Vue.use(vuexI18n.plugin, store);
 Vue.use(VueMeta);
 Vue.use(VueOnsen);
 Vue.use(PortalVue);
+// Vue.use(Antd);
 
 // Vue.component("l-map", LMap);
 // Vue.component("l-tile-layer", LTileLayer);
