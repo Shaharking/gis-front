@@ -42,6 +42,8 @@
               <v-ons-list-header>Default</v-ons-list-header>
               <v-ons-list-item class="menu-item">Home</v-ons-list-item>
               <v-ons-list-item class="menu-item">My trips</v-ons-list-item>
+              <v-ons-list-item class="menu-item" @click="setMenuState('login')">Login</v-ons-list-item>
+              <v-ons-list-item class="menu-item" @click="setMenuState('Register')">Registration</v-ons-list-item>
               <v-ons-list-item class="menu-item" @click="setMenuState('new_trip')">Create a new trip</v-ons-list-item>
               <v-ons-list-item
                 class="menu-item"
@@ -51,6 +53,12 @@
           </div>
           <div v-if="menuState === 'new_trip'">
             <new-trip></new-trip>
+          </div>
+          <div v-if="menuState === 'login'">
+            <login />
+          </div>
+          <div v-if="menuState === 'Register'">
+            <Register />
           </div>
         </div>
 
@@ -79,6 +87,8 @@ import "leaflet.markercluster/dist/leaflet.markercluster-src";
 import { setTimeout } from "timers";
 import SideMenu from "../components/SideMenu";
 import NewTrip from "../components/newTrip";
+import Login from "../components/Login";
+import Register from "../components/Register";
 // import Vue2LeafletMarkerCluster from "vue2-leaflet-markercluster";
 import "leaflet.featuregroup.subgroup";
 import "leaflet-sidebar-v2/js/leaflet-sidebar";
@@ -90,7 +100,9 @@ function myFunction() {
 
 export default {
   components: {
-    NewTrip
+    NewTrip,
+    Login,
+    Register
   },
   data() {
     return {
