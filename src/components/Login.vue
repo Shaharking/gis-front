@@ -1,41 +1,23 @@
+
 <template>
-  <div class="full-height">
+  <div>
     <div id="Login" v-if="!isLogged">
-      <div class="Username">
-        <h1>LOGIN:</h1>
+      <div class="Username"></div>
+      <div class="signIn">Sign in</div>
+      <div>
+        <h4>
+          <input class="form-control" placeholder="Username" v-model="form.username" />
+        </h4>
       </div>
       <div>
-        <h2>
-          <input class="textInput" placeholder="Username" v-model="form.username">
-        </h2>
+        <h4>
+          <input class="form-control" placeholder="Password" v-model="form.password" />
+        </h4>
       </div>
+
       <div>
-        <h2>
-          <input class="textInput" placeholder="Password" v-model="form.password">
-        </h2>
-      </div>
-      <v-ons-button modifier="large" style="margin: 6px 0" @click="login">LOGIN</v-ons-button>
-      <div class="Username">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/600px-Facebook_logo_%28square%29.png"
-          width="25px"
-          height="25px"
-          align="left"
-        >
-        <button width="100px">
-          <h5>Login with Facebook</h5>
-        </button>
-      </div>
-      <div class="Username">
-        <img
-          src="https://herevde.net/wp-content/uploads/2018/06/google-g-logo.jpg"
-          width="25px"
-          height="25px"
-          align="left"
-        >
-        <button width="100px">
-          <h5>Login with Google</h5>
-        </button>
+        <button class="btn btn-secondary btn-lg" @click="backToMenu">Back</button>
+        <v-ons-button class="btn btn-primary btn-lg" @click="login">LOGIN</v-ons-button>
       </div>
     </div>
     <div class="already-loged" v-else>
@@ -76,6 +58,10 @@ export default {
     },
     logout() {
       this.$store.dispatch("userLogout");
+    },
+
+    backToMenu() {
+      this.$store.dispatch("setMenuState", "main_menu");
     }
   },
   watch: {
@@ -91,7 +77,13 @@ export default {
   color: #251d1d;
   width: 400px;
   margin: 0 auto;
-  margin-top: 250px;
+}
+
+.signIn {
+  color: black;
+  font-size: 200%;
+  text-decoration: underline;
+  font-family: "Hepta Slab", serif;
 }
 
 .Username {
@@ -119,5 +111,10 @@ p {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.BackFromLogin {
+  width: 100%;
+  text-align: left;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="full-height">
+  <div>
     <div class="wrapper">
       <h1>Registeration</h1>
 
@@ -16,37 +16,40 @@
         <input
           id="input"
           v-model="form.firstName"
-          class="textInput"
+          class="form-control"
           type="text"
           placeholder="First Name "
-        >
+        />
       </div>
 
       <div>
         <input
           id="input"
           v-model="form.lastName"
-          class="textInput"
+          class="form-control"
           type="text"
           placeholder="Last Name"
-        >
+        />
       </div>
 
       <div>
-        <input id="input" v-model="form.email" class="textInput" type="text" placeholder="Email">
+        <input id="input" v-model="form.email" class="form-control" type="text" placeholder="Email" />
       </div>
 
       <div>
         <input
           id="input"
           v-model="form.password"
-          class="textInput"
+          class="form-control"
           type="password"
           placeholder="Password"
-        >
+        />
       </div>
-      <div>
-        <v-ons-button modifier="small" style="margin-top: 10px" @click="register">Register</v-ons-button>
+
+      <div class="backFromRegister">
+        <button class="btn btn-secondary btn-lg" @click="backToMenu" style="margin-right:8px;">Back</button>
+
+        <v-ons-button class="btn btn-primary btn-lg" @click="register">Register</v-ons-button>
       </div>
     </div>
   </div>
@@ -85,6 +88,10 @@ export default {
     }
   },
   methods: {
+    backToMenu() {
+      this.$store.dispatch("setMenuState", "main_menu");
+    },
+
     register() {
       this.$store.dispatch("userRegister", this.form).then(res => {
         this.$router.push({ path: "/" });
@@ -113,5 +120,12 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.backFromRegister {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 </style>
