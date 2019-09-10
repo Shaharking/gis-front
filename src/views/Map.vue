@@ -267,6 +267,11 @@ export default {
                     return `<a href=" ${data.external_urls[key]}" target="_blank"> ${data.external_urls[key]} </a> <br/>`;
                   });
 
+                let addTripBtn = "";
+                if (this.menuState === "new_trip") {
+                  addTripBtn = `<button class="add-attraction-trip" data-attraction-id="${attraction.id}" > Add attraction to trip</button>`;
+                }
+
                 popup.setContent(`
                   ${attraction.name} <br/>
                   ${data.address ? `Address: ${data.address} <br/> ` : ""}
@@ -274,9 +279,7 @@ export default {
                   ${data.description.en}  <br/>
                   More information on:  <br/>
                   ${links}
-                  <button class="add-attraction-trip" data-attraction-id="${
-                    attraction.id
-                  }" >Click me</button>
+                  ${addTripBtn}
                 `);
 
                 popup.update();
