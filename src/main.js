@@ -35,6 +35,7 @@ import VueCtkDateTimePicker from "vue-ctk-date-time-picker";
 import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css";
 
 import axios from "axios";
+import VModal from 'vue-js-modal';
 
 axios.interceptors.request.use(
   config => {
@@ -59,6 +60,7 @@ Vue.use(vuexI18n.plugin, store);
 Vue.use(VueMeta);
 Vue.use(VueOnsen);
 Vue.use(PortalVue);
+Vue.use(VModal, { dynamic: true, injectModalsContainer: true });
 // Vue.use(Antd);
 
 // Vue.component("l-map", LMap);

@@ -340,6 +340,11 @@ export default {
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 @import "https://cdnjs.cloudflare.com/ajax/libs/ionicons/1.5.2/css/ionicons.min.css";
 
+.leaflet-sidebar
+{
+  z-index: 800;
+}
+
 #map {
   width: 100%;
   height: 100%;
