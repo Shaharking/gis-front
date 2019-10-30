@@ -6,7 +6,8 @@
           <span>Trip from {{tripDatesMinMax(trip, 'date_from' , 'min') | dayFormat}} to {{ tripDatesMinMax(trip, 'date_to', 'max') | dayFormat}} - {{trip.TourAttractions.length}} attractions</span>
           <span>
             Status:
-            <span style="color:green;">Ongoing</span>
+            <span style="color:green;" v-if="!trip.TripOrder">Ongoing</span>
+            <span style="color:red;" v-if="trip.TripOrder !== null">Done</span>
           </span>
         </div>
         <div class="trip-details">
@@ -20,9 +21,24 @@
             {{attraction.date_from | shortDate}} : {{attraction.date_to | shortDate}}
           </div>
         </div>
-        <div>
-          <input type="text" placeholder="offering in ILS" />
-          <button>Submit</button>
+        <div  v-if="!trip.TripOrder">
+          <div v-if="userType === 0">
+            <div v-if="trip.TripOffers.length === 0">
+              Hurry up, offer your bid
+              <button @click="openNewBidOffer(trip.id)">Offer</button>
+            </div>
+            <div v-else>
+              You offered {{trip.TripOffers[0].estimation_cost}} ILS,
+              <button @click="openUpdateBidOffer(trip.id, trip.TripOffers[0].estimation_cost)">Update Offer</button>
+            </div>
+          </div>
+          <div v-if="userType === 1 && trip.TripOffers.length > 0">
+            You have {{trip.TripOffers.length}} open offers, 
+            <button @click="openOffersModal(trip.id, trip.TripOffers)">close the offer</button>
+          </div>
+          <div v-if="userType === 1 && trip.TripOffers.length === 0">
+            Unfortunally, no offers yet
+          </div>
         </div>
       </div>
       <div class="actions">
@@ -35,6 +51,8 @@
 <script>
 import dayjs from "dayjs";
 import { MapEventEmitter } from "./../emitters/map.emitter";
+import PromptDialog from '../modals/PromptDialog';
+import TripOffers from './TripOffers';
 export default {
   data() {
     return {
@@ -48,6 +66,10 @@ export default {
         acc[p.id] = p;
         return acc;
       }, {});
+    },
+    userType() {
+      const user = this.$store.getters["user"];
+      return user.user_type;
     }
   },
   mounted() {
@@ -90,6 +112,61 @@ export default {
     jumpToAttraction(attraction) {
       const { lat, lng } = attraction.Location;
       MapEventEmitter.$emit("map/panTo", { lat, lng });
+    },
+    openNewBidOffer(tripId) {
+      this.$modal.show(PromptDialog, {
+        title: "New trip offer",
+        placeholder: "Enter your offer in ils",
+      },{
+        adaptive: true,
+        height: 'auto'
+      },{
+        submit: (value) => {
+          const offer = Number(value);
+          const data = {
+            tripId,
+            cost: offer
+          };
+          this.$store.dispatch('createTripPriceOffer', data).then(this.fetchTrips);
+        }
+      });
+    },
+    openUpdateBidOffer(tripId, price) {
+      this.$modal.show(PromptDialog, {
+        title: "Update trip offer",
+        placeholder: "Enter your offer in ils",
+        value: price
+      },{
+        adaptive: true,
+        height: 'auto'
+      },{
+        submit: (value) => {
+          const offer = Number(value);
+          const data = {
+            tripId,
+            cost: offer
+          };
+          this.$store.dispatch('createTripPriceOffer', data).then(this.fetchTrips);
+        }
+      });
+    },
+    openOffersModal (tripId, offers)
+    {
+      this.$modal.show(TripOffers, {
+        offers: offers
+      }, {
+        adaptive: true,
+        height: 'auto'
+      }, {
+         submit: (value) => {
+           value = Number(value);
+           const data = {
+             tripId,
+             userId: value
+           };
+           this.$store.dispatch('createTripUserOrder', data).then(this.fetchTrips);
+         }
+      })
     }
   }
 };

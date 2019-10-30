@@ -4,7 +4,7 @@ import { getNowWeather, getFutureWeather } from "@/api/getWeather";
 import { getAttractions } from "@/api/attractions";
 import { getCategories } from "@/api/category";
 import { login, register } from "@/api/user";
-import { postTrips, getTrips } from "@/api/trip";
+import { postTrips, getTrips, createPriceOffterTrip, createTripOrder } from "@/api/trip";
 
 export const changeMapCity = makeAction(types.CHANGE_MAP_CITY);
 
@@ -107,3 +107,11 @@ export const getUserTrips = ({ commit, state }) =>
     .catch(err => {
       console.error(err);
     });
+
+export const createTripPriceOffer = ({ commit, state }, payload) => {
+  return createPriceOffterTrip(payload);
+}
+
+export const createTripUserOrder = ({ commit, state }, payload) => {
+  return createTripOrder(payload);
+}
