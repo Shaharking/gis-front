@@ -6,6 +6,7 @@ const state = {
   user: {
     email: "abc@abc.com",
     name: undefined,
+    user_type: 1,
     token:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTY3MDExNzMwfQ.4aPDKHEHu-93bwoG_NyssqkxUwB5TX8_NvKQqqUrJWQ"
   },

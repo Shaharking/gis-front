@@ -4,7 +4,7 @@ import { getNowWeather, getFutureWeather } from "@/api/getWeather";
 import { getAttractions } from "@/api/attractions";
 import { getCategories } from "@/api/category";
 import { login, register } from "@/api/user";
-import { postAttractions } from "@/api/trip";
+import { postTrips, getTrips } from "@/api/trip";
 
 export const changeMapCity = makeAction(types.CHANGE_MAP_CITY);
 
@@ -77,7 +77,11 @@ export const userLogin = ({ commit, state }, payload) =>
     });
 
 export const userLogout = ({ commit, state }) => {
-  commit("SET_USER", null);
+  commit("SET_USER", {
+    email: undefined,
+    name: undefined,
+    token: undefined
+  });
 };
 
 export const userRegister = ({ commit, state }, payload) =>
@@ -90,10 +94,16 @@ export const userRegister = ({ commit, state }, payload) =>
       throw err;
     });
 
-export const createTrip = ({ commit, state }, trips) => {
-  return postAttractions(trips)
+export const createTrip = ({ commit, state }, trips) =>
+  postTrips(trips)
     .then(res => res.data)
     .catch(err => {
       console.error(err);
     });
-};
+
+export const getUserTrips = ({ commit, state }) =>
+  getTrips()
+    .then(res => res.data)
+    .catch(err => {
+      console.error(err);
+    });

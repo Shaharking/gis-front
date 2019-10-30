@@ -41,14 +41,18 @@
             <v-ons-list>
               <v-ons-list-header>Default</v-ons-list-header>
               <v-ons-list-item class="menu-item">Home</v-ons-list-item>
-              <v-ons-list-item class="menu-item">My trips</v-ons-list-item>
+              <v-ons-list-item class="menu-item" @click="setMenuState('my_trip')">
+                <span v-if="userType === 1">My trips</span>
+                <span v-if="userType === 0">Trips offering</span>
+              </v-ons-list-item>
               <v-ons-list-item class="menu-item" @click="setMenuState('login')">Login</v-ons-list-item>
               <v-ons-list-item class="menu-item" @click="setMenuState('Register')">Registration</v-ons-list-item>
-              <v-ons-list-item class="menu-item" @click="setMenuState('new_trip')">Create a new trip</v-ons-list-item>
               <v-ons-list-item
                 class="menu-item"
-                @click="setMenuState('my_trip')"
-              >List of attractions</v-ons-list-item>
+                v-if="userType === 1"
+                @click="setMenuState('new_trip')"
+              >Create a new trip</v-ons-list-item>
+              <v-ons-list-item class="menu-item">List of attractions</v-ons-list-item>
             </v-ons-list>
           </div>
           <div v-if="menuState === 'new_trip'">
@@ -60,7 +64,9 @@
           <div v-if="menuState === 'Register'">
             <Register />
           </div>
-          <div v-if="menuState === 'my_trip'"></div>
+          <div v-if="menuState === 'my_trip'">
+            <MyTrips />
+          </div>
         </div>
 
         <div class="leaflet-sidebar-pane" id="messages">
@@ -90,10 +96,12 @@ import SideMenu from "../components/SideMenu";
 import NewTrip from "../components/newTrip";
 import Login from "../components/Login";
 import Register from "../components/Register";
+import MyTrips from "../components/myTrips";
 // import Vue2LeafletMarkerCluster from "vue2-leaflet-markercluster";
 import "leaflet.featuregroup.subgroup";
 import "leaflet-sidebar-v2/js/leaflet-sidebar";
 import "leaflet-search/dist/leaflet-search.src";
+import { MapEventEmitter } from "./../emitters/map.emitter";
 
 function myFunction() {
   console.log("i got clicked");
@@ -103,7 +111,8 @@ export default {
   components: {
     NewTrip,
     Login,
-    Register
+    Register,
+    MyTrips
   },
   data() {
     return {
@@ -134,6 +143,10 @@ export default {
     },
     menuState() {
       return this.$store.getters["menuState"];
+    },
+    userType() {
+      const user = this.$store.getters["user"];
+      return user.user_type;
     }
   },
 
@@ -154,6 +167,11 @@ export default {
       maxZoom: 15,
       id: "mapbox.streets"
     }).addTo(mymap);
+
+    MapEventEmitter.$on("map/panTo", ({ lat, lng }) => {
+      const latlng = new L.LatLng(lat, lng);
+      mymap.setView(latlng, mymap.getZoom(), { animation: true });
+    });
 
     L.control.locate().addTo(mymap);
     var control = L.control.layers(null, null, { collapsed: false });
@@ -324,7 +342,7 @@ export default {
 
 #map {
   width: 100%;
-  height: calc(100% - 10px);
+  height: 100%;
 }
 
 .menu-item {
