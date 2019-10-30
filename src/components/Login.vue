@@ -24,6 +24,7 @@
       <div>You are already logged in as</div>
       <div>{{ user.email }}</div>
       <div>
+        <button class="btn btn-secondary btn-lg" @click="backToMenu" style="margin-right:8px;">Back</button>
         <v-ons-button modifier="large" style="margin: 6px 0" @click="logout">Logout</v-ons-button>
       </div>
     </div>

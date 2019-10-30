@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const postAttractions = attractions =>
+export const postTrips = attractions =>
   axios.post("http://localhost:3000/v1/user/tour", { attractions });
 
-export const getAttractions = _ => {
+export const getTrips = _ => {
   return axios.get("http://localhost:3000/v1/user/tour");
 };

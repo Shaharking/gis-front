@@ -1,19 +1,6 @@
 <template>
   <div style="height:100%;">
-    <view-box ref="viewBox">
-      <x-header :left-options="leftOption">
-        {{title}}
-        <router-link
-          v-if="rightOption.show"
-          slot="right"
-          :to="rightOption.link"
-        >{{rightOption.name}}</router-link>
-      </x-header>
-      <transition :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
-        <router-view class="router-view"></router-view>
-      </transition>
-      <layout slot="bottom"></layout>
-    </view-box>
+    <router-view class="router-view"></router-view>
   </div>
 </template>
 
@@ -71,7 +58,6 @@ body {
 }
 
 .full-height {
-  padding-top: 45px;
   font-size: 0.7rem;
   height: 100%;
 }
